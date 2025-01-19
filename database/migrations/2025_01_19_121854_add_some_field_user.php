@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            
+            //phone
+            $table->string('phone')->nullable();
+            //is_vendor
+            $table->boolean('is_vendor')->default(false);
         });
     }
 
@@ -24,6 +26,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->dropColumn('phone');
+            $table->dropColumn('is_vendor');
         });
     }
 };
