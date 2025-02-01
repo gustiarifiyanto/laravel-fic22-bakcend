@@ -6,5 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sku extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+        'category',
+        'event_id',
+        'price',
+        'stock',
+        'day_type',
+    ];
+
+    public function events()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    //tickets
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }
