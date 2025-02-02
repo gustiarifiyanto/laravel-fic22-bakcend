@@ -8,6 +8,7 @@ use App\models\Order;
 use App\Models\Sku;
 use App\Models\Ticket;
 use App\Models\OrderTicket;
+use App\Service\CreatePaymentUrlService;
 
 class OrderController extends Controller
 {
@@ -34,6 +35,7 @@ class OrderController extends Controller
 
         //create order
         $order = Order::create([
+            "user_id" => $request->user()->id,
             "event_id"=> $request->event_id,
             "event_date"=> $request->event_date,
             "sku_id"=> $request->sku_id,
@@ -63,6 +65,11 @@ class OrderController extends Controller
             }
         }
 
+        $midtrans = new CreatePaymentUrlService();
+        $user = $request->user();
+        $order['user'] = $user;
+        $paymentUrl = $midtrans->getPaymentUrl($order);
+        $order['paymentUrl'] = $paymentUrl;
         
 
         //return response

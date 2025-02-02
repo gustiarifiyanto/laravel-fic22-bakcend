@@ -5,6 +5,7 @@ namespace App\Service\Midtrans;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Midtrans\Snap;
+use App\Service\Midtrans\Sku;
 
 class CreatePaymenturlService extends Midtrans
 {
@@ -21,19 +22,19 @@ class CreatePaymenturlService extends Midtrans
         $item_details = new Collection();
         
         foreach ($order->orderItems as $item) {
-            $product = Sku::find($item->product_id);
+            $sku = Sku::find($item->sku_id);
             $item_details->push([
-                "id"=> $product->id,
-                "price"=> $product->price,
-                "quantity"=> $product->quantity,
-                "name"=> $product->name,
+                "id"=> $sku->id,
+                "price"=> $sku->price,
+                "quantity"=> $item->qty,
+                "name"=> $sku->name,
             ]);
         }
 
         $params = [
             'transaction_details' => [
-                'order_id' => $order->number,
-                'gross_amount' =>$order->total_price,
+                'order_id' => $order->id,
+                'gross_amount' =>$order->total,
             ],
             'item_details' => $item_details,
             'customer_details' => [

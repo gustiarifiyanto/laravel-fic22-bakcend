@@ -23,7 +23,7 @@ class Event extends Model
 
     public function eventCategory()
     {
-        return $this->hasMany(EventCategory::class);
+        return $this->belongsTo(EventCategory::class);
     }
 
     public function skus()

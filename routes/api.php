@@ -15,8 +15,10 @@ Route::post('/login/google', [App\Http\Controllers\Api\AuthController::class,'lo
 
 Route::post('/logout', [App\Http\Controllers\Api\AuthController::class,'logout'])->middleware('auth:sanctum');
 
-Route::get('/events/{category_id}', [App\Http\Controllers\Api\EventController::class,'index']);
+Route::get('/events', [App\Http\Controllers\Api\EventController::class,'index']);
 
 Route::get('/event-categories', [App\Http\Controllers\Api\EventController::class,'categories']);
 
 Route::get('/event/{event_id}', [App\Http\Controllers\Api\EventController::class,'detail']);
+
+Route::post('/order', [App\Http\Controllers\Api\OrderController::class,'create'])->middleware('auth:sanctum');
