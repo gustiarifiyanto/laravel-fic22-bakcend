@@ -15,7 +15,7 @@ class Sku extends Model
         'day_type',
     ];
 
-    public function events()
+    public function event()
     {
         return $this->belongsTo(Event::class);
     }

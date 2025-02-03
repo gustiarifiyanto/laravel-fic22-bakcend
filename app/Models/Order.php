@@ -10,7 +10,7 @@ class Order extends Model
         'user_id',
         'event_id',
         'quantity',
-        'total',
+        'total_price',
         'status',
         'event_date',
     ];
@@ -20,9 +20,9 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function skus()
+    public function sku()
     {
-        return $this->belongsTo(Skus::class);
+        return $this->belongsTo(Sku::class);
     }
 
     public function event()
